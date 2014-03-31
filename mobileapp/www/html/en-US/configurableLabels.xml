@@ -1,0 +1,50 @@
+<medsolis>
+    <labels>
+        <label id="lockHeader" class="">Enter Passcode</label>
+        <label id="forgot_link" class="">Forgot Password?</label>
+        <label id="login_submit" class="">Sign In</label>
+        <label id="forgotPinLink" class="">Forgot Pin</label>
+        <label id="mandatory_field_error" class="">Please fill the details</label>
+        <label id="reset_password_account_blocked" class="">your Account is blocked</label>
+        <label id="invalid_field_error" class="">Incorrect answers, please try again. Your account will be locked after 3 attempts</label>
+        <label id="successfullMsg" class="">The details are mailed to the registered email ID. Please check your inbox and reset password</label>
+        <label id="contactEmail" class="">email@casemanager.com</label>
+        <label id="missedMedInfo" class="">You did not take your medications because</label>
+        <label id="missedMedOption1" class="">I just forgot!</label>
+        <label id="missedMedOption2" class="">Out of my pills.</label>
+        <label id="missedMedOption3" class="">I am facing adverse effects.</label>
+        <label id="missedMedOption4" class="">Other</label>
+        <label id="refillTitle" class="">Refill Required</label>
+        <label id="toLabel" class="">Recipient:</label>
+        <label id="forlabel" class="">Patient:</label>
+        <label id="subjectLabel" class="">Subject:</label>
+        <label id="toheader" class="">Recipient list</label>
+        <label id="forHeader" class="">Patient list</label>
+        <label id="subjectHeader" class="">Subject</label>
+        <label id="cameraTitle" class="">Camera</label>
+        <label id="fileTitle" class="">File</label>
+        <label id="addUserTitle" class="">Add Recipient</label>
+        <label id="forwardTitle" class="">Forward</label>
+        <label id="helpTitle" class="">Help</label>
+        <label id="ecgHelpTitle" class="">ECG Help</label>
+        <label id="appHelpTitle" class="">App Help</label>
+        <label id="" class="settingsTitle">Settings</label>
+        <label id="" class="changePassTitle">Change Password</label>
+        <label id="" class="changePinTitle">Change Pin</label>
+        <label id="" class="logoutTitle">Logout</label>
+        <label id="seTimeHeader" class="">Configure Time</label>
+        <label id="morningTitle" class="">Morning: </label>
+        <label id="noonTitle" class="">Noon: </label>
+        <label id="eveningTitle" class="">Evening: </label>
+        <label id="connectivityTitle" class="">No internet connection</label>
+        <label id="settingLink" class="">Setting</label>
+        <label id="timeSettTitle" class="">Time Settings</label>
+        <label id="" class="pctTitle">PCT</label>
+    </labels>
+    <contact id="contactInfo">
+        MedRubik,<br/>
+        365,  Larkspur Dr <br/>
+        California<br/>
+        Email : customerCare@medRubik.com
+    </contact>
+</medsolis>
