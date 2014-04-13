@@ -528,6 +528,57 @@ function showMask(){
     $('#sentMask').css("opacity", 0.8);
 }
 
+
+/***
+ * This function is used to validate required fields throught the application.
+ * Input parameter type is passed and returns succes .
+ ***/
+function validateField(type){
+    var isValidate = true;
+    $(this).removeClass("required");
+    $("."+type+"Required").each(function(){
+                                if($(this).val().trim() == ""){
+                                $(this).addClass("required");
+                                isValidate = false;
+                                }
+                                });
+    return isValidate;
+}
+
+
+function validateEmail(email){
+    var isEmailValidate = true;
+    
+    return isEmailValidate;
+}
+
+
+/*
+ * onOffline Function
+ * Handle the offline event when triggered
+ */
+function onOffline() {
+    /*showMask();
+     $("#lostConnection").css("display", "block");
+     $( "#lostConnection" ).fadeTo( "slow" , 1, function() {
+     // Animation complete.
+     });*/
+}
+
+
+
+/*
+ * online Function
+ * Handle the online event when triggered
+ */
+function online() {
+    removeMask();
+    $("#lostConnection").css("display","none");
+    $( "#lostConnection" ).fadeTo( "slow" , 0, function() {
+                                  // Animation complete.
+                                  });
+}
+
 /********************Common Functions ends here******************************/
 
 

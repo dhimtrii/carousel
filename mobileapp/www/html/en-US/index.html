@@ -39,7 +39,8 @@
                         var destinationType;
                         var pushNotification;
                         var myScroll;
-                        
+                        var nameArr = new Array();
+                        var phoneNumberArr = new Array();
                         
                         
                         
@@ -63,21 +64,6 @@
                             document.addEventListener("offline", onOffline, false);
                             
                             document.addEventListener("online", online, false);
-                            
-                            window.addEventListener("orientationchange", function() {
-                                
-                            });
-                            
-                            document.addEventListener('pause', function () {
-                                                      }, false);
-                                                      
-                            document.addEventListener('resign', function (e) {
-                                                      closeDetMedDiv();
-                                $(".pin").each(function(){
-                                    $(this).val("");
-                                });
-                                //gotoPath("#patient_autoLock");
-                            }, false);
                                                                                 
                             document.addEventListener('active', function (e) {
                                if(storage.getItem("isAppLoggedOut") == null || storage.getItem("isAppLoggedOut") == "true"){
@@ -122,8 +108,8 @@
                         };
                     
                     function onSuccess(contacts) {
-                        var nameArr = new Array();
-                        var phoneNumberArr = new Array();
+                        nameArr = new Array();
+                        phoneNumberArr = new Array();
                         for (var i = 0; i < contacts.length; i++) {
                             //alert("Display Name = " + contacts[i].displayName);
                             var phoneNumbers = contacts[i].phoneNumbers;
@@ -131,12 +117,17 @@
                                 if(phoneNumbers[j].type == "mobile"){
                                     var fullName = contacts[i].name.formatted;
                                     var phoneNumber = phoneNumbers[j].value;
+                                    phoneNumber = phoneNumber.replace("-", "");
+                                    phoneNumber = phoneNumber.replace("-", "");
+                                    phoneNumber = phoneNumber.replace("(", "");
+                                    phoneNumber = phoneNumber.replace(")", "");
+                                    phoneNumber = phoneNumber.replace(" ", "");
                                     nameArr.push(fullName);
                                     phoneNumberArr.push(phoneNumber);
                                 }
                             }
                         }
-                        alert(nameArr+"--"+phoneNumberArr);
+                        
                     }
                     
                     // onError: Failed to get the contacts
@@ -193,45 +184,11 @@
                     
                     
         </script>
-        <script type="text/template" id="commonHeaderTemplate">
-            <div data-role="header" id="headerVital" data-theme="a" data-position="fixed" class="headerDiv borderNone topZero headerDivHeight fixed blackText shadowBlack fl width100 bold inlineFlex">
-                <div id="overlayInbox" class="overlayComm absolute topZero leftZero width100 height100 none"></div>
-                <div class="ui-btn-left listIcon">
-                    <img src="../../images/icon_notificationAlert.png" id="leftMenu" class="ui-btn-left notificationImage" />
-                </div>
-                        
-                <h1 class="auto headerTitle textCenter auto font19">
-                    <span id="medCnt"></span>
-                </h1>
-                <div class="backHome ui-btn-right listIcon">
-                    <img src="../../images/icon_settings.png" id="rightMenu" class="settingIcon fr SettingsImage" />
-                </div>
-                <div id="rightAlertIcon" class="none rightAlertIcon ui-btn-right notificationCommunication notificationCommunicationSize none rightNotificationText backHome whiteText font10 bold absolute textCenter rightZero">
-                </div>
-            </div>
-        </script>
         
-        <script type="text/template" id="commonHeaderTemplate">
-            
-        </script>
-        
-        <script type="text/template" id="footerTemplate">
-            
-        </script>
-        
-        <script type="text/template" id="ViewRecipientTemplate">
-            <div id="toListBlock" class="fl">
-                <div id="s2id_e9" class="select2-container select2-container-multi populate toListWidth">
-                
-                </div>
-            </div>
-            <div id="delete" class="fr deleteIcon commOptnIcons marginTopZero">
-                <img id="deleteIcon" src="../../images/delete.svg" alt="Delete" class="fr iconSize"/>
-            </div>
-        </script>
         <script type="text/javascript" charset="utf-8"src="../../scripts/common.js"></script>
+        <script type="text/javascript" charset="utf-8"src="../../scripts/userfunc.js"></script>
         <script type="text/javascript" charset="utf-8"src="../../scripts/function.js"></script>
-        <script type="text/javascript" charset="utf-8"src="../../scripts/ecaliper.js"></script>
+        
                     
                     
         </script>
@@ -245,7 +202,7 @@
     <body onload="init();" class="blackBG height100 overflowhidden">
         
         <!----------------------------------- Login page starts here ------------------------------------------>
-        <!--<div data-role="page" id="appPage" data-title="MedRubik" class="themeBG textCenter height100 slidePage" style="overflow:hidden !important;">
+        <div data-role="page" id="appPage" data-title="MedRubik" class="themeBG textCenter height100 slidePage" style="overflow:hidden !important;">
             <div data-role="header" id="headerDashboard" data-theme="a" data-position="fixed" class="headerDiv borderNone redBG topZero headerDivHeight fixed whiteText shadowBlack fl width100 bold">
             </div>
             <div data-role="content" class="height100 inlineBlock width100 paddingZero" id="logs">
@@ -263,7 +220,7 @@
                     <div id="login_submit" class="linkBox linkboxInactive shadowNone whiteText font28 textCenter fr bebasLite">Go</div>
                 </div>
             </div>
-        </div>-->
+        </div>
         <!------------------------------------ Login screen DOM ends here ------------------------------------>
         
         
@@ -299,7 +256,7 @@
         
         
         <!-------------------------------------- Lock screen starts here ------------------------------------->
-        <!--<div data-role="page" id="patient_autoLock" class="themeBG textCenter height100 slidePage">
+        <div data-role="page" id="patient_autoLock" class="themeBG textCenter height100 slidePage">
             <div data-role="content" id="contentPatientAutoLock" class="paddingZero height100">
                 <div class="lockWrapper width100">
                     
@@ -364,7 +321,7 @@
                 </div>
             </div>
             
-        </div>-->
+        </div>
         <!----------------------------------- Lock screen DOM starts here ------------------------------------>
         
         
@@ -375,49 +332,49 @@
             <div data-role="content" class="height100 inlineBlock width100 paddingZero overflowhidden" id="logs">
                 
                 <div class="logoApplication auto bgNoRepeat fullBGSize logoApplicationSize effect6">
-                    <h1 id="welcomeName" class="textCenter whiteText font24 auto width100 welcomeNote"> </h1>
+                    <h1 id="welcomeName" class="textCenter whiteText font30 auto width100 welcomeNote bebasLite"> </h1>
                     
                 </div>
                 <div class="relative menuContent paddingZero auto width100 borderTopMenuDiv whiteText shadowNone" data-role="none">
                     <div class="relative subMenu width100">
                         <div id="patient_action" class="leftMenu absolute menuLeftPortrait leftZero topZero menu menuCss menuBorder">
                             <div class="menuItemDiv relative auto bgNoRepeat bgTopCenter">
-                                <div class="dripicons fl width100 textCenter font24" style="margin-top: 15px;">&#xe071;</div>
-                                <div class="fl width100 textCenter  font18">Home</div>
+                                <div class="dripicons fl width100 textCenter font32" style="margin-top: 15px;">&#xe071;</div>
+                                <div class="fl width100 textCenter  font18 bebasLite">Home</div>
                             </div>
                         </div>
-                        <div id="patient_medicine" class="rightMenu absolute menuRightPortrait fl topZero menu menuCss menuBorder">
+                        <div class="friends rightMenu absolute menuRightPortrait fl topZero menu menuCss menuBorder">
                             <div class="menuItemDiv relative auto bgNoRepeat bgCenter">
-                                <div class="dripicons fl width100 textCenter font24" style="margin-top: 15px;">&#xe082;</div>
-                                <div class="fl width100 textCenter  font18">Friends</div>
+                                <div class="dripicons fl width100 textCenter font32" style="margin-top: 15px;">&#xe082;</div>
+                                <div class="fl width100 textCenter  font18 bebasLite">Friends</div>
                             </div>
                         </div>
                     </div>
                     <div class="relative subMenu width100">
                         <div id="patient_appointment" class="leftMenu absolute menuLeftPortrait leftZero topZero menu menuCss menuBorder">
                             <div class="menuItemDiv relative auto bgNoRepeat bgCenter">
-                                <div class="dripicons fl width100 textCenter font24" style="margin-top: 15px;">&#xe071;</div>
-                                <div class="fl width100 textCenter font18">Favourite</div>
+                                <div class="dripicons fl width100 textCenter font32" style="margin-top: 15px;">&#xe071;</div>
+                                <div class="fl width100 textCenter font18 bebasLite">Favourite</div>
                             </div>
                         </div>
                         <div id="patient_vital" class="rightMenu absolute menuRightPortrait fl topZero menu menuCss menuBorder">
                             <div class="menuItemDiv relative auto bgNoRepeat bgTopCenter">
-                                <div class="dripicons fl width100 textCenter font24" style="margin-top: 15px;">&#xe084;</div>
-                                <div class="fl width100 textCenter font18">Profile</div>
+                                <div class="dripicons fl width100 textCenter font32" style="margin-top: 15px;">&#xe084;</div>
+                                <div class="fl width100 textCenter font18 bebasLite">Profile</div>
                             </div>
                         </div>
                     </div>
                     <div class="relative subMenu width100">
-                        <div id="patient_appointment" class="leftMenu absolute menuLeftPortrait leftZero topZero menu menuCss menuBorder">
+                        <div class="leftMenu absolute menuLeftPortrait leftZero topZero menu menuCss menuBorder message">
                             <div class="menuItemDiv relative auto bgNoRepeat bgCenter">
-                                <div class="dripicons fl width100 textCenter font24" style="margin-top: 15px;">&#xe023;</div>
-                                <div class="fl width100 textCenter font18">Messages</div>
+                                <div class="dripicons fl width100 textCenter font34" style="margin-top: 15px;">&#xe023;</div>
+                                <div class="fl width100 textCenter font18 bebasLite">Messages</div>
                             </div>
                         </div>
-                        <div id="patient_vital" class="rightMenu absolute menuRightPortrait fl topZero menu menuCss menuBorder">
+                        <div class="options rightMenu absolute menuRightPortrait fl topZero menu menuCss menuBorder">
                             <div class="menuItemDiv relative auto bgNoRepeat bgTopCenter">
-                                <div class="dripicons fl width100 textCenter font24" style="margin-top: 15px;">&#xe027;</div>
-                                <div class="fl width100 textCenter font18">Settings</div>
+                                <div class="dripicons fl width100 textCenter font16" style="margin-top: 25px;margin-bottom:15px;">&#xe069; &#xe069; &#xe069;</div>
+                                <div class="fl width100 textCenter font18 bebasLite">OPTIONS</div>
                             </div>
                         </div>
                     </div>
@@ -427,390 +384,112 @@
         </div>
         <!----------------------------------- Home page DOM starts here ------------------------------------>
         
-        <div data-role="page" id="homePage" data-title="MedRubik" class="themeBG textCenter height100 slidePage" style="overflow:hidden !important;">
-            <div data-role="content" class="height100 inlineBlock width100 paddingZero overflowhidden" id="logs">
-                
-                <div class="logoApplication auto bgNoRepeat fullBGSize logoApplicationSize effect6">
-                    <h1 id="welcomeName" class="textCenter whiteText font24 auto width100 welcomeNote"> </h1>
-                    
-                </div>
-                <div class="relative menuContent paddingZero auto width100 borderTopMenuDiv whiteText shadowNone" data-role="none">
-                    <div class="relative subMenu width100">
-                        <div id="patient_action" class="leftMenu absolute menuLeftPortrait leftZero topZero menu menuCss menuBorder">
-                            <div class="menuItemDiv relative auto bgNoRepeat bgTopCenter">
-                                <div class="dripicons fl width100 textCenter font24" style="margin-top: 15px;">&#xe071;</div>
-                                <div class="fl width100 textCenter  font18">Home</div>
-                            </div>
-                        </div>
-                        <div id="patient_medicine" class="rightMenu absolute menuRightPortrait fl topZero menu menuCss menuBorder">
-                            <div class="menuItemDiv relative auto bgNoRepeat bgCenter">
-                                <div class="dripicons fl width100 textCenter font24" style="margin-top: 15px;">&#xe082;</div>
-                                <div class="fl width100 textCenter  font18">Friends</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="relative subMenu width100">
-                        <div id="patient_appointment" class="leftMenu absolute menuLeftPortrait leftZero topZero menu menuCss menuBorder">
-                            <div class="menuItemDiv relative auto bgNoRepeat bgCenter">
-                                <div class="dripicons fl width100 textCenter font24" style="margin-top: 15px;">&#xe071;</div>
-                                <div class="fl width100 textCenter font18">Favourite</div>
-                            </div>
-                        </div>
-                        <div id="patient_vital" class="rightMenu absolute menuRightPortrait fl topZero menu menuCss menuBorder">
-                            <div class="menuItemDiv relative auto bgNoRepeat bgTopCenter">
-                                <div class="dripicons fl width100 textCenter font24" style="margin-top: 15px;">&#xe084;</div>
-                                <div class="fl width100 textCenter font18">Profile</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="relative subMenu width100">
-                        <div id="patient_appointment" class="leftMenu absolute menuLeftPortrait leftZero topZero menu menuCss menuBorder">
-                            <div class="menuItemDiv relative auto bgNoRepeat bgCenter">
-                                <div class="dripicons fl width100 textCenter font24" style="margin-top: 15px;">&#xe023;</div>
-                                <div class="fl width100 textCenter font18">Messages</div>
-                            </div>
-                        </div>
-                        <div id="patient_vital" class="rightMenu absolute menuRightPortrait fl topZero menu menuCss menuBorder">
-                            <div class="menuItemDiv relative auto bgNoRepeat bgTopCenter">
-                                <div class="dripicons fl width100 textCenter font24" style="margin-top: 15px;">&#xe027;</div>
-                                <div class="fl width100 textCenter font18">Settings</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-            </div>
-        </div>
-        
-        <!--<div data-role="page" id="appPage" data-title="MedRubik" class="whiteBG textCenter height100 slidePage" style="overflow:hidden !important;">
-            <div data-role="content" class="height100 inlineBlock width100 paddingZero overflowhidden" id="logs">
-                
-               <div class="height100 fl themeBG" style="width:19%;border-right:1px solid #000;">
-                   <div class="relative menuContent paddingZero auto width100 borderTopMenuDiv whiteText shadowNone" data-role="none">
-                       <div class="relative subMenuiPad width100">
-                           <div id="patient_action" class="leftMenuiPad absolute fl leftZero topZero menu menuCss menuBorder">
-                               <div class="menuItemDiv relative auto bgNoRepeat bgTopCenter">
-                                   <div class="dripicons fl width100 textCenter font24" style="margin-top: 15px;">&#xe071;</div>
-                                   <div class="fl width100 textCenter bebasLite font18">Home</div>
-                                </div>
-                           </div>
-                        </div>
-                       <div class="whiteBG auto" style="width:90%;height:1px;"></div>
-                        <div class="relative subMenuiPad width100">
-                           <div id="patient_medicine" class="leftMenuiPad absolute fl topZero menu menuCss menuBorder">
-                               <div class="menuItemDiv relative auto bgNoRepeat bgCenter">
-                                   <div class="dripicons fl width100 textCenter font24" style="margin-top: 15px;">&#xe082;</div>
-                                   <div class="fl width100 textCenter  font18">Friends</div>
-                               </div>
-                           </div>
-                        </div>
-                        <div class="whiteBG auto" style="width:90%;height:2px;"></div>
-                        <div class="relative subMenuiPad width100">
-                            <div id="patient_appointment" class="leftMenuiPad absolute fl leftZero topZero menu menuCss menuBorder">
-                                <div class="menuItemDiv relative auto bgNoRepeat bgCenter">
-                                    <div class="dripicons fl width100 textCenter font24" style="margin-top: 15px;">&#xe071;</div>
-                                    <div class="fl width100 textCenter font18">Favourite</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="whiteBG auto" style="width:90%;height:2px;"></div>
-                        <div class="relative subMenuiPad width100">
-                            <div id="patient_vital" class="leftMenuiPad absolute fl topZero menu menuCss menuBorder">
-                                <div class="menuItemDiv relative auto bgNoRepeat bgTopCenter">
-                                    <div class="dripicons fl width100 textCenter font24" style="margin-top: 15px;">&#xe084;</div>
-                                    <div class="fl width100 textCenter font18">Profile</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="whiteBG auto" style="width:90%;height:2px;"></div>
-                        <div class="relative subMenuiPad width100">
-                            <div id="patient_appointment" class="leftMenuiPad absolute fl leftZero topZero menu menuCss menuBorder">
-                                <div class="menuItemDiv relative auto bgNoRepeat bgCenter">
-                                    <div class="dripicons fl width100 textCenter font24" style="margin-top: 15px;">&#xe023;</div>
-                                    <div class="fl width100 textCenter font18">Messages</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="whiteBG auto" style="width:90%;height:2px;"></div>
-                        <div class="relative subMenuiPad width100">
-                            <div id="patient_vital" class="leftMenuiPad absolute fl topZero menu menuCss menuBorder">
-                                <div class="menuItemDiv relative auto bgNoRepeat bgTopCenter">
-                                    <div class="dripicons fl width100 textCenter font24" style="margin-top: 15px;">&#xe027;</div>
-                                    <div class="fl width100 textCenter font18">Settings</div>
-                                </div>
-                            </div>
-                        </div>
-                   </div>
-                </div>
-               <div class="height100 fl inlineBlock" style="width:80%;">
-                   <div data-role="header" id="headerDashboard" data-theme="a" class="headerDiv borderNone themeBG topZero headerDivHeight absolute whiteText shadowBlack fl width100 bold">
-                       <div id="overlayDashboard" class="overlayComm absolute topZero leftZero width100 height100 none"></div>
-                       <div class="newMail ui-btn-left leftSideMenu leftSlideMenu whiteBG topIconDiv pointer">
-                           <div class="dripicons fl font28 shadowNone blackText" style="width:24px;margin-top: -5px;margin-left:4px;">&#xe093;</div>
-                       </div>
-                       <div style="width:100%;margin-top: 8px !important;" class="fl height100 font24 commName auto whiteText commNamePosition textCenter shadowNone bebasLite">
-                           Messages
-                       </div>
-                       <div class="ui-btn-right rightSideMenu rightSlideMenu whiteBG topIconDiv pointer">
-                           <div class="dripicons fl font24 shadowNone blackText" style="width:24px;margin-top: 0px;margin-left:5px;">&#xe080;</div>
-                       </div>
-                       <div id="rightAlertIcon" class="rightAlertIcon ui-btn-right notificationCommunication notificationCommunicationSize none rightNotificationText backHome whiteText font10 bold absolute textCenter rightZero">
-                       </div>
-                   </div>
-               </div>
-               
-                
-            </div>
-        </div>-->
-        
-        
-        
-        <!--<div data-role="page" id="appPage" data-title="MedRubik" class="whiteBG textCenter height100 slidePage page" style="overflow:hidden !important;">
+        <div data-role="page" id="messagePage" class="commPage page whiteBG shadowNone width100 slidePage" data-add-back-btn="false">
             <div data-role="header" id="headerDashboard" data-theme="a" data-position="fixed" class="headerDiv borderNone themeBG topZero headerDivHeight fixed whiteText shadowBlack fl width100 bold">
-                <div id="overlayDashboard" class="overlayComm absolute topZero leftZero width100 height100 none"></div>
-                <div class="newMail ui-btn-left leftSideMenu leftSlideMenu whiteBG topIconDiv pointer">
-                    <div class="dripicons fl font28 shadowNone blackText" style="width:24px;margin-top: -5px;margin-left:4px;">&#xe093;</div>
-                </div>
-                <h1 id="pageHeader" class="font16 commName auto whiteText commNamePosition"></h1>
-                <div class="ui-btn-right rightSideMenu rightSlideMenu whiteBG topIconDiv pointer">
-                    <div class="dripicons fl font24 shadowNone blackText" style="width:24px;margin-top: 0px;margin-left:5px;">&#xe080;</div>
-                </div>
-                <div id="rightAlertIcon" class="rightAlertIcon ui-btn-right notificationCommunication notificationCommunicationSize none rightNotificationText backHome whiteText font10 bold absolute textCenter rightZero">
-                </div>
-            </div>
-            <div data-role="content" class="height100 inlineBlock width100 paddingZero" id="logs">
-                
-            </div>
-        </div>-->
-        
-        
-        <!--<div data-role="page" id="patient_communication" class="patient_communication commPage page whiteBG shadowNone width100 slidePage" data-add-back-btn="false">
-            <div data-role="header" id="headerDashboard" data-theme="a" data-position="fixed" class="headerDiv borderNone themeBG topZero headerDivHeight fixed whiteText shadowBlack fl width100 bold">
-                <div id="overlayDashboard" class="overlayComm absolute topZero leftZero width100 height100 none"></div>
-                <div class="newMail ui-btn-left leftSideMenu leftSlideMenu whiteBG topIconDiv pointer">
-                    <div class="dripicons fl font28 shadowNone blackText" style="width:24px;margin-top: -5px;margin-left:4px;">&#xe093;</div>
+                <div class="backToMenu ui-btn-left leftSideMenu leftSlideMenu pointer topMenu height100 topZero leftZero">
+                    <div class="whiteBG topMenuIcon auto pointer">
+                        <div class="dripicons auto font28 shadowNone blackText width100 height100 textCenter normal" style="line-height:40px;">&#xe018;</div>
+                    </div>
                 </div>
                 <div style="width:100%;margin-top: 8px !important;" class="fl height100 font24 commName auto whiteText commNamePosition textCenter shadowNone bebasLite">
                     Messages
                 </div>
-                <div class="ui-btn-right rightSideMenu rightSlideMenu whiteBG topIconDiv pointer">
-                    <div class="dripicons fl font24 shadowNone blackText" style="width:24px;margin-top: 0px;margin-left:5px;">&#xe080;</div>
+                <div class="ui-btn-right rightSideMenu pointer topMenu height100 topZero rightZero" onclick="syncContact()">
+                    <div class="whiteBG auto topMenuIcon pointer">
+                        <div class="dripicons auto font24 shadowNone blackText width100 height100 textCenter normal" style="line-height:40px;">&#xe080;</div>
+                    </div>
                 </div>
                 <div id="rightAlertIcon" class="rightAlertIcon ui-btn-right notificationCommunication notificationCommunicationSize none rightNotificationText backHome whiteText font10 bold absolute textCenter rightZero">
                 </div>
             </div>
-            <div data-role="content" id="contentPatientCommunication" class="contentPatientCommunication overflowAuto contentPatientCommunicationHeight" style="margin-top:0px;padding:0px !important;">
-                <div class="width100 heightAuto fl textLeft" style="padding-left:0px !important;line-height:0.5px!important;">
-                    
-                    <div class="width100 heightAuto grayBorderBottom" style="margin-top:10px;padding-bottom:5px;">
-                        <div class="width100 inlineBlock" style="height:35px;">
-                            <div class="userListName fl" style="min-width:62%;margin-left:10px;">
-                                <div class="width100 font17 latoLight" style="line-height:8px;">Terry Gilliam</div>
-                            </div>
-                            <div class="grayText font11 fl textRight" style="line-height:1px;margin-left:3px;color:#777;margin-top:20px;width:25%;">04:30 pm</div>
-                            <div class="dripicons fr font24 shadowNone grayText" style="width:5%;margin-top: 20px;margin-right:10px;color:#777;">
-                                &#xe015;
-                            </div>
-                        </div>
-                        
-                        <div class="width100 inlineBlock" style="height:20px;margin-top:-6px;">
-                            <div class="fl inlineBlock" style="width:85%;margin-left:10px;">
-                                <div class="width100 font11 latoLight" style="line-height:8px;margin-top:7px;">Here is the link for New Micromax X10...</div>
-                            </div>
-                            <div class="msgAlert fr whiteText font11">3</div>
-                        </div>
-                    </div>
-                    
-                    <div class="width100 heightAuto grayBorderBottom" style="margin-top:10px;padding-bottom:5px;">
-                        <div class="width100 inlineBlock" style="height:35px;">
-                            <div class="userListName fl" style="min-width:62%;margin-left:10px;">
-                                <div class="width100 latoLight" style="line-height:8px;">
-                                    <div class="font17 fl" style="width:60%;">Neel Chokshi</div>
-                                    <div class="font13 fl" style="width:38%;"> +2 Others</div>
-                                </div>
-                            </div>
-                            <div class="grayText font11 fl textRight" style="line-height:1px;margin-left:3px;color:#777;margin-top:20px;width:25%;">28th Feb</div>
-                            <div class="dripicons fr font24 shadowNone grayText" style="width:5%;margin-top: 20px;margin-right:10px;color:#777;">
-                                &#xe015;
-                            </div>
-                        </div>
-                        
-                        <div class="width100 inlineBlock" style="height:20px;margin-top:-6px;">
-                            <div class="fl inlineBlock" style="width:85%;margin-left:10px;">
-                                <div class="width100 font11 latoLight" style="line-height:8px;margin-top:7px;">I want to buy Samsung galaxy. Here....</div>
-                            </div>
-                            <div class="msgAlert fr whiteText font11">1</div>
-                        </div>
-                    </div>
-                    
-                    <div class="width100 heightAuto grayBorderBottom" style="margin-top:10px;padding-bottom:5px;">
-                        <div class="width100 inlineBlock" style="height:35px;">
-                            <div class="userListName fl" style="min-width:62%;margin-left:10px;">
-                                <div class="width100 latoLight" style="line-height:8px;">
-                                    <div class="font17 fl" style="width:60%;">Richard Ro</div>
-                                    <div class="font13 fl" style="width:38%;"></div>
-                                </div>
-                            </div>
-                            <div class="grayText font11 fl textRight" style="line-height:1px;margin-left:3px;color:#777;margin-top:20px;width:25%;">25th Feb</div>
-                            <div class="dripicons fr font24 shadowNone grayText" style="width:5%;margin-top: 20px;margin-right:10px;color:#777;">
-                                &#xe015;
-                            </div>
-                        </div>
-                        
-                        <div class="width100 inlineBlock" style="height:20px;margin-top:-6px;">
-                            <div class="fl inlineBlock" style="width:85%;margin-left:10px;">
-                                <div class="width100 font11 latoLight" style="line-height:8px;margin-top:7px;">I disagree, I really dont think that's a best option.</div>
-                            </div>
-                            <div class="msgAlert fr whiteText font11 none">3</div>
-                        </div>
-                    </div>
-                    
-                </div>
-            </div>
-        </div>-->
-        
-        
-        <div data-role="page" id="patient_communication" class="patient_communication commPage page whiteBG shadowNone width100 slidePage" data-add-back-btn="false">
-            <div data-role="header" id="headerDashboard" data-theme="a" data-position="fixed" class="headerDiv borderNone themeBG topZero headerDivHeight fixed whiteText shadowBlack fl width100 bold">
-                <div id="overlayDashboard" class="overlayComm absolute topZero leftZero width100 height100 none"></div>
-                <div class="newMail ui-btn-left leftSideMenu leftSlideMenu whiteBG topIconDiv pointer">
-                    <div class="dripicons fl font28 shadowNone blackText" style="width:24px;margin-top: -5px;margin-left:4px;">&#xe093;</div>
-                </div>
-                <div style="width:100%;margin-top: 8px !important;" class="fl height100 font24 commName auto whiteText commNamePosition textCenter shadowNone bebasLite">
-                    Friends
-                </div>
-                <div class="ui-btn-right rightSideMenu rightSlideMenu whiteBG topIconDiv pointer">
-                    <div class="dripicons fl font24 shadowNone blackText" style="width:24px;margin-top: 0px;margin-left:5px;">&#xe080;</div>
-                </div>
-                <div id="rightAlertIcon" class="rightAlertIcon ui-btn-right notificationCommunication notificationCommunicationSize none rightNotificationText backHome whiteText font10 bold absolute textCenter rightZero">
-                </div>
-            </div>
-            <div data-role="content" id="contentPatientCommunication" class="contentPatientCommunication overflowAuto contentPatientCommunicationHeight" style="margin-top:0px;padding:0px !important;">
-                <div class="width100 heightAuto fl textLeft" style="padding-left:0px !important;line-height:0.5px!important;">
-                    
-                    <div class="selectedList width100 searchList grayBorderBottom pointer">
-                        <div class="fl listImageDiv bgCenter bgNoRepeat inlineFlex">
-                            <img class="auto" src="../../images/faceImage.png" style="width:30px;height:35px;margin-left: 5px;margin-top: 3px;"/>
-                        </div>
-                        <div id="nameHeader" class="userListName fl" style="min-width:200px;">
-                            <div class="width100 font16" style="line-height:22px;">Terry Gilliam</div>
-                            <span class="grayText font11" style="line-height:1px;margin-left:3px;color:#777;">Available</span>
-                        </div>
-                        <div class="dripicons fr font24 shadowNone grayText" style="width:5%;margin-top: 20px;margin-right:10px;color:#777;">
-                            &#xe015;
-                        </div>
-                    </div>
-                    <div class="selectedList width100 searchList grayBorderBottom pointer">
-                        <div class="fl listImageDiv bgCenter bgNoRepeat inlineFlex">
-                            <img class="auto" src="../../images/faceImage.png" style="width:30px;height:35px;margin-left: 5px;margin-top: 3px;"/>
-                        </div>
-                        <div id="nameHeader" class="userListName fl" style="min-width:200px;">
-                            <div class="width100 font16" style="line-height:22px;">Balaji Pratap</div>
-                            <span class="grayText font11" style="line-height:1px;margin-left:3px;color:#777;">Offline</span>
-                        </div>
-                        <div class="dripicons fr font24 shadowNone grayText" style="width:5%;margin-top: 20px;margin-right:10px;color:#777;">
-                            &#xe015;
-                        </div>
-                    </div>
-                    <div class="selectedList width100 searchList grayBorderBottom pointer">
-                        <div class="fl listImageDiv bgCenter bgNoRepeat inlineFlex">
-                            <img class="auto" src="../../images/faceImage.png" style="width:30px;height:35px;margin-left: 5px;margin-top: 3px;"/>
-                        </div>
-                        <div id="nameHeader" class="userListName fl" style="min-width:200px;">
-                            <div class="width100 font16" style="line-height:22px;">Neel Chokshi</div>
-                            <span class="grayText font11" style="line-height:1px;margin-left:3px;color:#777;">Available</span>
-                        </div>
-                        <div class="dripicons fr font24 shadowNone grayText" style="width:5%;margin-top: 20px;margin-right:10px;color:#777;">
-                            &#xe015;
-                        </div>
-                    </div>
-                    <div class="selectedList width100 searchList grayBorderBottom pointer">
-                        <div class="fl listImageDiv bgCenter bgNoRepeat inlineFlex">
-                            <img class="auto" src="../../images/faceImage.png" style="width:30px;height:35px;margin-left: 5px;margin-top: 3px;"/>
-                        </div>
-                        <div id="nameHeader" class="userListName fl" style="min-width:200px;">
-                            <div class="width100 font16" style="line-height:22px;">Richard Ro</div>
-                            <span class="grayText font11" style="line-height:1px;margin-left:3px;color:#777;">Offline</span>
-                        </div>
-                        <div class="dripicons fr font24 shadowNone grayText" style="width:5%;margin-top: 20px;margin-right:10px;color:#777;">
-                            &#xe015;
-                        </div>
-                    </div>
-                    <div class="selectedList width100 searchList grayBorderBottom pointer">
-                        <div class="fl listImageDiv bgCenter bgNoRepeat inlineFlex">
-                            <img class="auto" src="../../images/faceImage.png" style="width:30px;height:35px;margin-left: 5px;margin-top: 3px;"/>
-                        </div>
-                        <div id="nameHeader" class="userListName fl" style="min-width:200px;">
-                            <div class="width100 font16" style="line-height:22px;">Robert Rao</div>
-                            <span class="grayText font11" style="line-height:1px;margin-left:3px;color:#777;">Available</span>
-                        </div>
-                        <div class="dripicons fr font24 shadowNone grayText" style="width:5%;margin-top: 20px;margin-right:10px;color:#777;">
-                            &#xe015;
-                        </div>
-                    </div>
-                </div>
-                    
-                </div>
+            <div data-role="content" id="contentInbox" class="contentInbox" style="margin-top:0px;padding:0px !important;">
+                
             </div>
         </div>
         
         
         
         <!--------------------- Continue communication DOM for patient/doctor starts here ---------------------->
-        <!--<div data-role="page" id="patient_continue_communication" class="patient_communication_compose commPage page whiteBG shadowNone width100 slidePage" data-add-back-btn="false">
+        <div data-role="page" id="detailMsgPage" class="commPage page whiteBG shadowNone width100 slidePage" data-add-back-btn="false">
             <div data-role="header" id="headerDashboard" data-theme="a" data-position="fixed" class="headerDiv borderNone themeBG topZero headerDivHeight fixed whiteText shadowBlack fl width100 bold">
-                <div id="overlayDashboard" class="overlayComm absolute topZero leftZero width100 height100 none"></div>
-                <div class="newMail ui-btn-left leftSideMenu leftSlideMenu whiteBG topIconDiv pointer">
-                    <div class="dripicons fl font28 shadowNone blackText" style="width:24px;margin-top: -5px;margin-left:4px;">&#xe093;</div>
+                <div class="backToMenu ui-btn-left leftSideMenu leftSlideMenu pointer topMenu height100 topZero leftZero">
+                    <div class="whiteBG topMenuIcon auto pointer">
+                        <div class="dripicons auto font28 shadowNone blackText width100 height100 textCenter normal" style="line-height:40px;">&#xe018;</div>
+                    </div>
                 </div>
-                <div id="conversationHeaderText" class="font16 commName auto whiteText commNamePosition bebasLite height100 pointer" style="width:220px;">
-                    <div class="font30 fl textCenter width100" style="margin-top:5px;">Neel Chokshi .. +1</div>
+                <div class="width100 height100 font24 commName auto whiteText commNamePosition textCenter shadowNone bebasLite">
+                    Messages
                 </div>
-                <div class="ui-btn-right rightSideMenu rightSlideMenu whiteBG topIconDiv pointer">
-                    <div class="dripicons fl font24 shadowNone blackText" style="width:24px;margin-top: 0px;margin-left:5px;">&#xe080;</div>
+                <div class="ui-btn-right rightSideMenu optionMenuDiv pointer topMenu height100 topZero rightZero" onclick="syncContact()">
+                    <div class="whiteBG auto topMenuIcon pointer">
+                        <div class="dripicons auto font24 shadowNone blackText width100 height100 textCenter normal" style="line-height:40px;">&#xe011;</div>
+                    </div>
                 </div>
                 <div id="rightAlertIcon" class="rightAlertIcon ui-btn-right notificationCommunication notificationCommunicationSize none rightNotificationText backHome whiteText font10 bold absolute textCenter rightZero">
                 </div>
             </div>
             
-            <div data-role="content" id="contentConversation" class="msgBodyNewHeight width100 overflowAuto fixed paddingZero" style="margin-top:10px;height:400px;">
-                <div id="msgNewBody" class="msgBodyMargin msgBody fl width100 heightAuto inlineBlock clearDiv">
-                    <div class="heightAuto textCenter auto borderRadiusFive blackText none" style="width:150px;margin-top:10px;margin-bottom:10px;border:1px solid #919BAC;">Thu, Mar 16 2014</div>
-                    <div class="width100 heightAuto fl">
-                        <div class="heightAuto inlineBlock relative fl" style="border-radius:7px;padding:7px 10px 15px 10px;margin:10px 15px 20px 15px;width:70%;border-top:1px solid #919BAC;line-height: 17px !important;background-color:#92C8D5;">
-                            I want to buy a new galaxy tab. Please can you suggest me with an option. Here is th link http://www.flipkart.com/galaxy/
-                            <div class="fl detailImageDiv bgCenter bgNoRepeat inlineFlex absolute detailImageDivLeft">
-                                <img class="auto" src="../../images/faceImage.png" style="width:25px;height:25px;"/>
+            <div data-role="content" id="contentConversation" class="msgBodyNewHeight width100 overflowAuto fixed paddingZero contentCommunication">
+                <div id="msgNewBody" class="msgBodyMargin msgBody fl width100 heightAuto inlineBlock clearDiv" style="min-height:5px;">
+                    
+                    <div class="heightAuto inlineBlock relative fl messageLine messageLineSize cssMsgBG latoLight">
+                        <div class="width100 fl" style="border-bottom: 1px solid; padding-bottom: 2px; margin-right: 0px; padding-right: 0%;">
+                            <div class="imageclick" id="'+link+'" style="width:100%;display:inline-block;height:40px;">
+                                <div class="dripicons font24 blackText" style="width:30%;">&#xe019;</div>
+                                <div class="fl underline" style="width:65%;margin-top:10px;text-align:right;">Maria-Ecg.jpg</div>
                             </div>
-                            <div class="fl timeInfoDiv bgCenter width100 bgNoRepeat inlineFlex absolute font11">
-                                <div class="fl timeInfoDivLeft width100"> Richard Ro at 2:00 pm</div>
-                            </div>
+                            <br/>This is an atatchment text
                         </div>
-                        <div class="heightAuto inlineBlock relative fr" style="border-radius:7px;padding:7px 15px 10px 10px;margin:10px 15px 20px 15px;width:70%;border-top:1px solid #B0B4BB;line-height: 17px !important;background-color:#BEC3CB;">
-                            I have used this tab. It is very good option to buy this tab
-                            <div class="fr detailImageDiv bgCenter bgNoRepeat inlineFlex absolute detailImageDivRight">
-                                <img class="auto" src="../../images/faceImage.png" style="width:25px;height:25px;"/>
-                            </div>
-                            <div class="fl timeInfoDiv bgCenter width100 bgNoRepeat inlineFlex absolute font11">
-                                <div class="fr timeInfoDivRight textRight width100"> You at 2:10 pm</div>
-                            </div>
+                        
+                        <div class="fl detailImageDiv bgCenter grayBG bgNoRepeat inlineFlex absolute detailImageDivLeft overflowhidden">
+                            <div class="auto userIcon whiteText bebasLite font11 textCenter">AA</div>
+                        </div>
+                        <div class="fl timeInfoDiv bgCenter width100 bgNoRepeat inlineFlex absolute font10 leftZero">';
                         </div>
                     </div>
                 </div>
             </div>
-            <div id="attcFilehDiv" class="underline attchDiv fixed"></div>
+            <div class="attchDiv fixed msgAttchDiv none width100 whiteBG">
+                <div class="fl bebasLiteBold textCenter font17 attchBlock" style="width: 25%; line-height: 34px;">Attached</div>
+                <div id="attcFilehDiv" class="fl latoRegular font15 attchBlock" style="width: 60%; line-height: 32px;"></div>
+                <div class="fr removeAttch dripicons textCenter font24 blueText pointer attchBlock" style="width:9%;">&#xe025;</div>
+            </div>
             <div class="fl sendField bottomZero inlineBlock fixed width100 leftZero fl" style="background-color:#E9EBEE;border-top:1px solid #919BAC;">
                 <form>
-                    <textarea id="sendMsgBody" class="autoValidation inputField composeBody composeBodySize fl whiteBG blackText overflowYAuto overflowXHidden wordWrap" rows="10" cols="1" autocorrect="on" autocapitalize="on" autocomplete="off"></textarea>
-                    <div class="borderRadiusFive blueText pointer sendMessage buttonBorderBlue fr shadowNone bebasLite font30 textCenter" id="continuSendMessage" style="border:1px solid #246B7C;">Send
+                    <textarea id="sendMsgBody" class="composeArea messageInput autoValidation inputField sendMessageBody sendMessageBodyPos composeBodySize fl whiteBG blackText overflowYAuto overflowXHidden wordWrap" rows="10" cols="1" autocorrect="on" autocapitalize="on" autocomplete="off"></textarea>
+                    <div id="continuSendMessage" class="borderRadiusFive pointer sendMessage sendButtonInActive sendMessagePos fr shadowNone bebasLiteBold font24 textCenter" id="continuSendMessage" style="border:1px solid #39A5C0;height: 45px;line-height: 46px;">Send
                         <div class="overlayBtn borderRadiusFive overlay absolute topZero leftZero width100 height100 none"></div>
                     </div>
                     
                 </form>
             </div>
             
-        </div>-->
+        </div>
         <!---------------------- Continue communication DOM for patient/doctor ends here --------------------->
+        
+        <div data-role="page" id="friendsPage" class="commPage page whiteBG shadowNone width100 slidePage" data-add-back-btn="false">
+            <div data-role="header" id="headerDashboard" data-theme="a" data-position="fixed" class="headerDiv borderNone themeBG topZero headerDivHeight fixed whiteText shadowBlack fl width100 bold">
+                <div class="backToMenu ui-btn-left leftSideMenu leftSlideMenu pointer topMenu height100 topZero leftZero">
+                    <div class="whiteBG topMenuIcon auto pointer">
+                        <div class="dripicons auto font28 shadowNone blackText width100 height100 textCenter normal" style="line-height:40px;">&#xe018;</div>
+                    </div>
+                </div>
+                <div style="width:100%;margin-top: 8px !important;" class="fl height100 font24 commName auto whiteText commNamePosition textCenter shadowNone bebasLite">
+                    Friends
+                </div>
+                <div class="ui-btn-right rightSideMenu pointer topMenu height100 topZero rightZero" onclick="syncContact()">
+                    <div class="whiteBG auto topMenuIcon pointer">
+                        <div class="dripicons auto font24 shadowNone blackText width100 height100 textCenter normal" style="line-height:40px;">&#xe022;</div>
+                    </div>
+                </div>
+                <div id="rightAlertIcon" class="rightAlertIcon ui-btn-right notificationCommunication notificationCommunicationSize none rightNotificationText backHome whiteText font10 bold absolute textCenter rightZero">
+                </div>
+            </div>
+            
+            <div data-role="content" id="contentFriendsList" class="recipientListDiv msgBodyNewHeight width100 overflowAuto fixed paddingZero">
+                
+            </div>
+        </div>
         
         <!----------------------------- slide menu screens will belong here --------------------------------->
         
@@ -854,39 +533,223 @@
             </div>
         </div>
         
-        <div class="fixed height100 fl leftSlidePanel whiteText slidePanel themeBG">
-            <!--<div id="commInfo" class="userInfo width100 font15 fl pointer shadowNone whiteText">
-                <div class="fl" style="width:40px;height:40px;background:url('../../images/whiteCircle.png');background-repeat:no-repeat;background-position:center;background-size:40px 40px;display:inline-flex;margin-top: 2px;">
-                    <img class="auto" src="../../images/faceImage.png" style="width:30px;height:35px;margin-left: 5px;margin-top: 3px;"/>
+        
+        <div data-role="page" id="optionPage" data-title="MedRubik" class="themeBG textCenter height100 slidePage" style="overflow:hidden !important;" data-add-back-btn="false">
+            <div data-role="header" id="headerDashboard" data-theme="a" data-position="fixed" class="headerDiv borderNone redBG topZero headerDivHeight fixed whiteText shadowBlack fl width100 bold">
+                <div class="backToMenu ui-btn-left leftSideMenu leftSlideMenu pointer topMenu height100 topZero leftZero">
+                    <div class="whiteBG topMenuIcon auto pointer">
+                        <div class="dripicons auto font28 shadowNone blackText width100 height100 textCenter normal" style="line-height:40px;">&#xe018;</div>
+                    </div>
                 </div>
-                <div id="nameHeader" class="userTitle">Andrew Smithson</div>
+                <div style="width:100%;margin-top: 8px !important;" class="fl height100 font24 commName auto whiteText commNamePosition textCenter shadowNone bebasLite">
+                    OPTIONS
+                </div>
             </div>
-            <div class="helpDiv width100 font15 fl menuOptionDiv pointer shadowNone blueText">
-                <div class="dripicons fl" style="width:24px;margin-top: 7px;">&#xe023;</div><div class="currentPage menuTitle">Your Conversation</div>
+            
+            <div data-role="content" class="height100 inlineBlock width100 paddingZero overflowhidden" id="logs">
+                
+                <div class="relative menuContent paddingZero auto width100 borderTopMenuDiv whiteText shadowNone" data-role="none">
+                    <div class="relative subMenu width100">
+                        <div class="changePassword leftMenu absolute menuLeftPortrait leftZero topZero menu menuCss menuBorder">
+                            <div class="menuItemDiv relative auto bgNoRepeat bgTopCenter">
+                                <div class="dripicons fl width100 textCenter font32" style="margin-top: 15px;">&#xe047;</div>
+                                <div class="fl width100 textCenter  font18 bebasLite">Change Password</div>
+                            </div>
+                        </div>
+                        <div class="changePin rightMenu absolute menuRightPortrait fl topZero menu menuCss menuBorder">
+                            <div class="menuItemDiv relative auto bgNoRepeat bgCenter">
+                                <div class="dripicons fl width100 textCenter font32" style="margin-top: 15px;">&#xe047;</div>
+                                <div class="fl width100 textCenter  font18 bebasLite">Change Passcode</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="relative subMenu width100">
+                        <div class="profile leftMenu absolute menuLeftPortrait leftZero topZero menu menuCss menuBorder">
+                            <div class="menuItemDiv relative auto bgNoRepeat bgCenter">
+                                <div class="dripicons fl width100 textCenter font32" style="margin-top: 15px;">&#xe084;</div>
+                                <div class="fl width100 textCenter font18 bebasLite">Profile</div>
+                            </div>
+                        </div>
+                        <div class="settings rightMenu absolute menuRightPortrait fl topZero menu menuCss menuBorder">
+                            <div class="menuItemDiv relative auto bgNoRepeat bgTopCenter">
+                                <div class="dripicons fl width100 textCenter font32" style="margin-top: 15px;">&#xe027;</div>
+                                <div class="fl width100 textCenter font18 bebasLite">Settings</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="relative subMenu width100">
+                        <div class="help leftMenu absolute menuLeftPortrait leftZero topZero menu menuCss menuBorder message">
+                            <div class="menuItemDiv relative auto bgNoRepeat bgCenter">
+                                <div class="dripicons fl width100 textCenter font34" style="margin-top: 15px;">&#xe072;</div>
+                                <div class="fl width100 textCenter font18 bebasLite">Help</div>
+                            </div>
+                        </div>
+                        <div class="settings rightMenu absolute menuRightPortrait fl topZero menu menuCss menuBorder">
+                            <div class="menuItemDiv relative auto bgNoRepeat bgTopCenter">
+                                <div class="dripicons fl width100 textCenter font32" style="margin-top: 15px;">&#xe074;</div>
+                                <div class="fl width100 textCenter font18 bebasLite">LogOut</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
             </div>
-            <div class="helpDiv width100 font15 fl menuOptionDiv pointer shadowNone whiteText patientMenu">
-                <div class="dripicons fl" style="width:24px;margin-top: 7px;">&#xe071;</div><div class="menuTitle">Home</div>
-            </div>
-            <div class="helpDiv width100 font15 fl menuOptionDiv pointer shadowNone whiteText">
-                <div class="dripicons fl" style="width:24px;margin-top: 7px;">&#xe072;</div><div id="appHelpTitle" class="menuTitle"></div>
-            </div>
-            <div class="helpDiv width100 font15 fl menuOptionDiv pointer shadowNone whiteText">
-                <div class="dripicons fl" style="width:24px;margin-top: 7px;">&#xe072;</div><div id="ecgHelpTitle" class="menuTitle"></div>
-            </div>
-            <div class="patient_general_Setting width100 font15 fl menuOptionDiv pointer shadowNone whiteText">
-                <div class="dripicons fl" style="width:24px;margin-top: 7px;">&#xe027;</div><div class="settingsTitle menuTitle"></div>
-            </div>
-            <div class="patient_change_password width100 font15 fl menuOptionDiv pointer shadowNone whiteText">
-                <div class="dripicons fl" style="width:24px;margin-top: 7px;">&#xe045;</div><div class="changePassTitle menuTitle"></div>
-            </div>
-            <div class="patient_lock_Setting width100 font15 fl menuOptionDiv pointer shadowNone whiteText">
-                <div class="dripicons fl" style="width:24px;margin-top: 7px;">&#xe045;</div><div class="changePinTitle menuTitle"></div>
-            </div>
-            <div class="patient_logout width100 font15 fl menuOptionDiv pointer shadowNone whiteText">
-                <div class="dripicons fl" style="width:24px;margin-top: 7px;">&#xe074;</div><div class="menuTitle logoutTitle"></div>
-            </div>-->
         </div>
         
+        <!---------------------------------- Change password DOM starts here ------------------------------------>
+        <div data-role="page" id="change_password" class="whiteBG change_password overflowhidden page commPage slidePage zeroSlideLeft" data-add-back-btn="false">
+            <div data-role="header" id="headerDashboard" data-theme="a" data-position="fixed" class="headerDiv borderNone themeBG topZero headerDivHeight fixed whiteText shadowBlack fl width100 bold">
+                <div class="backToOption ui-btn-left leftSideMenu leftSlideMenu pointer topMenu height100 topZero leftZero">
+                    <div class="whiteBG topMenuIcon auto pointer">
+                        <div class="dripicons auto font28 shadowNone blackText width100 height100 textCenter normal" style="line-height:40px;">&#xe018;</div>
+                    </div>
+                </div>
+                <div class="width100 fl height100 font24 commName auto whiteText commNamePosition textCenter shadowNone bebasLite">
+                    Update Password
+                </div>
+                <div id="change_password_submit" class="ui-btn-right rightSideMenu optionMenuDiv pointer topMenu height100 topZero rightZero">
+                    <div class="whiteBG auto topMenuIcon pointer">
+                        <div class="dripicons auto font24 shadowNone blackText width100 height100 textCenter normal" style="line-height:40px;">&#xe020;</div>
+                    </div>
+                </div>
+            </div>
+            <div data-role="content" class="mrgtb10 zeroSlideLeft profileContent">
+                <div class="configureOperation">
+                    <div class="saveCancelButton textCenter bgNoRepeat pointer borderRadiusFive saveButton fr shadowBlack" id="change_password_submit">
+                    </div>
+                    <!--<div class="saveCancelButton cancelButton fr shadowBlack" id="cancelConfig">
+                     </div>-->
+                </div>
+                
+                <div class="width100 heightAuto fl switchDiv">
+                    <div class="width100 fl font20 textLeft bebasLite" style="margin-top:15px;margin-right:10px;margin-left: 10px;">OLD PASSWORD</div>
+                    <div class="width100 fl font16">
+                        <input type="password" id="change_password_old" class="changePassField inputField whiteBG blackText width100" value="" placeholder="Old Password" />
+                    </div>
+                </div>
+                <div class="width100 heightAuto fl switchDiv">
+                    <div class="width100 fl font20 textLeft bebasLite" style="margin-top:15px;margin-right:10px;margin-left: 10px;">NEW PASSWORD</div>
+                    <div class="width100 fl font16">
+                        <input type="password" id="change_password_new" class="changePassField inputField whiteBG blackText width100" value="" placeholder="Old Password" />
+                    </div>
+                </div>
+                <div class="width100 heightAuto fl switchDiv">
+                    <div class="width100 fl font20 textLeft bebasLite" style="margin-top:15px;margin-right:10px;margin-left: 10px;">CONFIRM NEW PASSWORD</div>
+                    <div class="width100 fl font16">
+                        <input type="password" id="change_password_confirm_new" class="changePassField inputField whiteBG blackText width100" value="" placeholder="Old Password" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!---------------------------------- Change password DOM ends here ------------------------------------>
+        
+        
+        <div data-role="page" id="changePinPage" class="whiteBG textCenter height100 slidePage" data-add-back-btn="false">
+            <div data-role="header" id="headerDashboard" data-theme="a" data-position="fixed" class="headerDiv borderNone themeBG topZero headerDivHeight fixed whiteText shadowBlack fl width100 bold">
+                <div class="backToOption ui-btn-left leftSideMenu leftSlideMenu pointer topMenu height100 topZero leftZero">
+                    <div class="whiteBG topMenuIcon auto pointer">
+                        <div class="dripicons auto font28 shadowNone blackText width100 height100 textCenter normal" style="line-height:40px;">&#xe018;</div>
+                    </div>
+                </div>
+                <div class="width100 fl height100 font24 commName auto whiteText commNamePosition textCenter shadowNone bebasLite">
+                    Update Passcode
+                </div>
+                <div id="change_password_submit" class="ui-btn-right rightSideMenu optionMenuDiv pointer topMenu height100 topZero rightZero">
+                    <div class="whiteBG auto topMenuIcon pointer">
+                        <div class="dripicons auto font24 shadowNone blackText width100 height100 textCenter normal" style="line-height:40px;">&#xe020;</div>
+                    </div>
+                </div>
+            </div>
+            <div data-role="content" id="contentPatientAutoLock" class="paddingZero height100">
+                <div class="lockWrapper width100">
+                    
+                    <div class="textCenter lockDiv auto inlineBlock heightAuto">
+                        <div id="lockHeader" class="auto textCenter font20 blackText lockHeader shadowNone bebasLite">Enter Passcode</div>
+                        <div class="inputWrapper textCenter width100 inlineBlock">
+                            <div class="inputDiv textCenter auto inlineBlock">
+                                <input type="password" id="pin1" pattern="[0-9]*" class="fl pin lockinputFirst blueText shadowNone overflowhidden lockinput paddingZero" maxlength="1" readonly/>
+                                <input type="password" id="pin2" pattern="[0-9]*" class="fl pin lockinputRest blueText shadowNone overflowhidden lockinput paddingZero" maxlength="1" readonly/>
+                                <input type="password" id="pin3" pattern="[0-9]*" class="fl pin lockinputRest blueText shadowNone overflowhidden lockinput paddingZero" maxlength="1" readonly/>
+                                <input type="password" id="pin4" pattern="[0-9]*" class="fl pin lockinputRest blueText shadowNone overflowhidden lockinput paddingZero" maxlength="1" readonly/>
+                            </div>
+                        </div>
+                        <div id="lockKeyboard fl">
+                            <div class="fl width100 blackText">
+                                <div id="lockKey1" class="changelockKey lockKeyInactive pointer fl textCenter lockKeyFirst">
+                                    <div class="keyCircle auto">1</div>
+                                </div>
+                                <div id="lockKey2" class="changelockKey lockKeyInactive pointer fl textCenter">
+                                    <div class="keyCircle auto">2</div>
+                                </div>
+                                <div id="lockKey3" class="changelockKey lockKeyInactive pointer fl textCenter">
+                                    <div class="keyCircle auto">3</div>
+                                </div>
+                            </div>
+                            <div class="fl width100">
+                                <div id="lockKey4" class="changelockKey lockKeyInactive pointer fl textCenter lockKeyFirst">
+                                    <div class="keyCircle auto">4</div>
+                                </div>
+                                <div id="lockKey5" class="changelockKey lockKeyInactive pointer fl textCenter">
+                                    <div class="keyCircle auto">5</div>
+                                </div>
+                                <div id="lockKey6" class="changelockKey lockKeyInactive pointer fl textCenter">
+                                    <div class="keyCircle auto">6</div>
+                                </div>
+                            </div>
+                            <div class="fl width100">
+                                <div id="lockKey7" class="changelockKey lockKeyInactive pointer fl textCenter lockKeyFirst">
+                                    <div class="keyCircle auto">7</div>
+                                </div>
+                                <div id="lockKey8" class="changelockKey lockKeyInactive pointer fl textCenter">
+                                    <div class="keyCircle auto">8</div>
+                                </div>
+                                <div id="lockKey9" class="changelockKey lockKeyInactive pointer fl textCenter">
+                                    <div class="keyCircle auto">9</div>
+                                </div>
+                            </div>
+                            <div class="fl width100">
+                                <div id="lockKey9" class="changelockKey lockKeyInactive pointer fl textCenter lockKeyFirst" style="visibility:hidden;">
+                                    <div class="keyCircle auto"></div>
+                                </div>
+                                <div id="lockKey9" class="changelockKey lockKeyInactive pointer fl textCenter">
+                                    <div class="keyCircle auto">0</div>
+                                </div>
+                                <div id="lockKey9" class="changelockKey lockKeyInactive pointer fl textCenter clearCircle">
+                                    <div class="keyCircle auto font20">Clear</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        
+        
+        <div class="attchmentOptionDiv fixed grayBG heightAuto none">
+            <div class="arrow-up"></div>
+            <div class="width100 msgMenuRow">
+                <div class="fl msgMenuBlock textCenter whiteBG">
+                    <div class="fl dripicons shadowNone font20 width100 normal">&#xe034;</div>
+                    <div class="fl shadowNone font16 bebasLiteBold width100">UPLOAD</div>
+                </div>
+                <div class="fl msgMenuBlock textCenter whiteBG">
+                    <div class="fl dripicons shadowNone font20 width100 normal">&#xe019;</div>
+                    <div class="fl shadowNone font16 bebasLiteBold width100">CAPTURE</div>
+                </div>
+            </div>
+            <div class="width100 msgMenuRow">
+                <div class="fl msgMenuBlock textCenter whiteBG">
+                    <div class="fl dripicons shadowNone font20 width100 normal">&#xe083;</div>
+                    <div class="fl shadowNone font16 bebasLiteBold width100">ARCHIVE</div>
+                </div>
+                <div class="fl msgMenuBlock textCenter whiteBG">
+                    <div class="fl dripicons shadowNone font20 width100 normal">&#xe083;</div>
+                    <div class="fl shadowNone font16 bebasLiteBold width100">OPTION</div>
+                </div>
+            </div>
+        </div>
         <!----------------------------- slide menu screens will belong here --------------------------------->
         
         

@@ -194,6 +194,14 @@ table {
 	font-size:30px !important;
 }
 
+.font32{
+	font-size:32px !important;
+}
+
+.font34{
+	font-size:34px !important;
+}
+
 .marginTop5{
 	margin-top:5px;
 }
@@ -268,6 +276,14 @@ table {
 	.font30{
 		font-size:33px !important;
 	}
+    
+	.font32{
+		font-size:35px !important;
+	}
+    
+	.font34{
+		font-size:36px !important;
+	}
 }
 
 .fl{
@@ -280,6 +296,11 @@ table {
 .vtop {
 	vertical-align: top;
 }
+
+.grayBorderBottom{
+	border-bottom:1px solid #E0E0D0;
+}
+
 
 .none{
 	display:none;
@@ -378,19 +399,19 @@ table {
 }
 
 .topZero{
-	top:0px;
+	top:0px !important;;
 }
 
 .leftZero{
-	left:0px;
+	left:0px !important;;
 }
 
 .bottomZero{
-	bottom:0;
+	bottom:0 !important;;
 }
 
 .rightZero{
-	right:0;
+	right:0 !important;;
 }
 
 .marginTopZero{
@@ -589,6 +610,11 @@ bgBottomRight{
 	overflow-x:hidden;
 }
 
+.overflowElipsis{
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
 .pointer{
 	cursor:pointer;
 }
@@ -679,7 +705,7 @@ grayText{
 }
 
 .headerDivHeight{
-	height:44px;
+	height:55px;
 	background-size:100% 49px;
 }
 
@@ -687,17 +713,39 @@ grayText{
 	height:35px;
 }
 
-.topIconDiv{
-	width:37px;
-	height:37px;
-    border-radius:17px;
+.topMenuIcon{
+	width:40px;
+	height:40px;
+      border-radius:25px;
+    margin-top:7px !important;
 }
 
+.topMenu{
+    width:60px;
+}
+
+.commNamePosition{
+    line-height:50px;
+}
 
 @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) { 
 	.headerDivHeight{
-		height:55px;
+		height:65px;
 	}
+    
+    .topMenuIcon{
+        width:50px;
+        height:50px;
+        border-radius:30px;
+    }
+    
+    .topMenu{
+        width:70px;
+    }
+    
+  .commNamePosition{
+    line-height:62px;
+  }
 }
 
 
@@ -705,30 +753,45 @@ grayText{
 
 
 /************************************SubHeader css starts here******************************************/
-.subHeaderComm{
-	border-top:1px solid #ccc;
-        border-bottom:0px solid;
+.subHeader, .subHeaderHelp{
+	border-bottom:1px solid #ccc;
 }
 
-.subheaderDivCommHeight{
-        top:44px;
-        height:39px;
+.subheaderDivHeight{
+        top:48px;
+        height:50px;
+}
+
+.subjectHeader{
+    min-width:200px;
+    margin-left:3%;
+}
+
+.subjectHeaderPos{
+    margin-top:5px;
+    height:18px;
+        overflow:hidden;
+}
+
+.searchBarBox{
+    height:50px;
 }
 
 @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {  
-        .headerDivCommHeight{
-		height:71px;
-		background-size:100% 71px;
-	}
-	
-	.subheaderDivCommHeight{
+    .subheaderDivHeight{
 		top:58px;
-		height:50px;
+		height:60px;
 	}
     
-	.commNamePosition{
-		margin-top: 17px !important;
-	}
+    .subjectHeaderPos{
+        margin-top:10px;
+        height:20px;
+        overflow:hidden;
+    }
+    
+    .searchBarBox{
+        height:50px;
+    }
 }
 /************************************SubHeader css ends here******************************************/
 
@@ -901,10 +964,6 @@ ul{
 	border-right: 1px solid #39A5C0;
 }
 
-.contentCommunication{
-	margin-top:41px;
-}
-
 
 @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {  
 	.sortingDiv{
@@ -913,10 +972,7 @@ ul{
 		margin-left:32.5%;
 		width:36%;
 	}
-        
-    .contentCommunication{
-		margin-top:71px;
-	}
+
 }
 /**************************************Doctor's dashboard css ends here**************************************/
 
@@ -1056,6 +1112,19 @@ input:-moz-placeholder { color: #fff !important; }
     width: 50px;
     border-radius:30px;
     border:1px solid #fff;
+}
+
+
+.changelockKey {
+    color: #000;
+    font-size: 25px;
+    height: 50px;
+    margin: 6px 12px;
+    text-shadow: none;
+    padding: 5px;
+    width: 50px;
+    border-radius:30px;
+    border:1px solid #000;
 }
 
 .lockKeyFirst{
@@ -1293,48 +1362,110 @@ input:-moz-placeholder { color: #fff !important; }
 
 
 /*************************Inbox page css ends here********************/
+/*************************Inbox page css ends here********************/
 .msgAlert{
-    margin-right:5px;
     background-color: #EC5451;
     border-radius: 4px;
     height: 1px;
-    margin-left: 7px;
-    padding: 11px 5px 8px;
-    width: 8px;
+}
+
+.msgAlertPos{
+    margin-right:5px;
+    padding: 3px 5px 18px;
+    margin-top:3px;
+}
+
+.inboxRecPane{
+    height:20px;
+}
+
+.inboxSubPane{
+    margin-top:5px;
+}
+
+.userListNameSize{
+    width:57%;
+    margin-left:10px;
+    height:30px;
+}
+
+.inboxRecPaneSize{
+    min-width:40%;
+    max-width:60%;
 }
 
 
-
-.userListName{
-	margin-top:12px;
+.inboxRecExtraSize{
+    width:38%;
 }
 
-.listImageDiv{
-	width:40px;
-	height:40px;
-	border:1px solid #ccc;
-	margin-top: 2px;
-	border-radius:22px;
-	margin-left:10px;
-	margin-right:10px;
+.inboxArrow{
+    width:5%;
+    margin-right:20px;
+}
+
+.inboxTime{
+    line-height:1px;
+    margin-left:3px;
+    width:25%;
+}
+
+.inboxTimePos{
+    margin-top:15px;
+}
+
+.subjectPane{
+    width:84%;
+    margin-left:10px;
+}
+
+.inboxNextPane{
+    width:10%;
+}
+
+.threadList{
+    margin-top:10px;
 }
 
 
-
-.searchList{
-	height:44px;
-    padding-top:8px;
-    padding-bottom:8px;
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) { 
+    .msgAlertPos{
+        margin-right:25px;
+        padding: 3px 7px 22px;
+    }
+    
+  .inboxRecPane{
+    height:32px;
+  }
+  
+  .userListNameSize{
+    width:62%;
+    margin-left:10px;
+    height:36px;
+  }
+ 
+  .inboxRecPaneSize{
+    width:60%;
+  }
+ 
+  .inboxArrowPos{
+    margin-top: 10px;
+  }
+  
+  .inboxTimePos{
+    margin-top:20px;
+  }
+  
+  .subjectPane{
+    width:88%;
+    margin-left:10px;
+  }
+  
+  .inboxNextPane{
+    width:10%;
+  }
 }
-
-.grayBorderBottom{
-	border-bottom:1px solid #E0E0D0;
-}
-
-.blackBorderTop{
-	border-top:1px solid #f2f2f2;
-}
-/*************************Inbox page css ends here********************/
+/*************************Inbox page css ends here********************//*************************Inbox page css ends here********************/
 
 
 
@@ -1381,3 +1512,305 @@ input:-moz-placeholder { color: #fff !important; }
     padding-top:2px;
 }
 /*************************message page css ends here********************/
+
+.searchList{
+    padding-top:7px;
+  padding-bottom:7px;
+}
+
+.userListName{
+	margin-top:12px;
+}
+
+.listImageDiv{
+	width:40px;
+	height:40px;
+	border:1px solid #ccc;
+	margin-top: 2px;
+	border-radius:22px;
+	margin-left:10px;
+	margin-right:10px;
+    line-height:45px;
+}
+
+.faceImageSize{
+    width:45px;
+    height:45px;
+  line-height:40px;
+}
+
+.faceImageDivSize{
+    width:40px;
+    height:45px;
+    line-height:40px;
+}
+
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) { 
+    .userListName{
+        height:40px;
+    }
+}
+
+
+
+
+/*************************continue message page css ends here********************/
+.sendMessageBody{
+    margin: 5px;
+    border-radius: 5px;
+    height: 40px;
+}
+
+.sendMessageBodyPos{
+    width:74%;
+}
+
+.detailImageDiv{
+      width:25px;
+	height:25px;
+	border:1px solid #246B7C;
+	border-radius:22px;
+       bottom:-10px;
+       line-height:28px;
+}
+
+.detailImageDivRight{
+    right:-10px;
+}
+
+.detailImageDivLeft{
+    left:-10px;
+}
+
+.timeInfoDiv{
+    bottom:-20px;
+}
+
+.timeInfoDivLeft{
+    margin-left:20px;
+    width:50%;
+}
+
+.timeInfoDivRight{
+    margin-right:20px;
+    width:50%;
+}
+
+.sendMessageBody{
+    margin: 5px;
+    border-radius: 5px;
+    height: 40px;
+}
+
+.sendMessageBodyPos{
+    width:74%;
+}
+
+.sendMessage{
+    margin:5px;
+}
+
+.sendMessagePos{
+    width:18%;
+}
+
+.messageLine{
+    border-radius:7px;
+    margin:10px 15px 20px;
+    width:80%;
+    border-top:1px solid #919BAC;
+    line-height: 17px !important;
+}
+
+.cssMsgBG{
+    background-color:#92C8D5;
+    border:1px solid #8bb5bf;
+}
+
+.cssMsgBGMe{
+    background-color:#bec3cb;
+    border:1px solid #b0b4bb;
+}
+
+.messageLineSize{
+    padding:7px 10px 15px 10px;
+}
+
+.blurBG{
+    -webkit-filter: blur(30px);
+    -moz-filter: blur(30px);
+    -o-filter: blur(30px);
+    -ms-filter: blur(30px);
+    filter: blur(30px);
+}
+
+.blurMenuDiv{
+    z-index:999999;
+    opacity:0.8;
+}
+
+.blurMenuDivPos{
+    top:100px;
+}
+
+.uploadMenuDiv{
+    border:2px solid #000;
+    margin-top:10px;
+    border-radius:5px;
+}
+
+.uploadMenuDivSize{
+    width:130px;
+    height:35px;
+}
+
+.conversationMenuDiv{
+    height:52px;
+    z-index:99999999;
+    top:49px;
+}
+
+.menuHRLine{
+    width:1px;
+    height:40px;
+    margin-top:5px;
+}
+
+.uploadIconDiv{
+    width:49%;
+}
+
+.uploadIcon{
+    width:24px;
+    margin-left:10px;
+}
+
+.uploadIconText{
+    margin-top: 7px;
+    margin-left:7px;
+}
+
+.userIcon{
+    width:25px;
+    height:25px;
+}
+
+.contentCommunication{
+    height: calc(100% - (50px + 60px));
+}
+
+.userType{
+    height:18px;
+  line-height:25px;
+}
+
+.userName{
+    height:30px;
+}
+
+
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) { 
+    .sendMessageBodyPos{
+        width:85%;
+    }
+    
+    
+    .messageLineSize{
+        padding:12px 10px 20px;
+    }
+    
+    .sendMessageBodyPos{
+        width:85%;
+    }
+
+    .sendMessagePos{
+        width:10%;
+    }
+    
+    .detailImageDiv{
+        width:30px;
+        height:30px;
+        border:1px solid #246B7C;
+        border-radius:28px;
+        bottom:-15px;
+        line-height:33px;
+    }
+    
+    .timeInfoDiv{
+        bottom:-22px;
+    }
+    
+    .blurMenuDivPos{
+        top:120px;
+    }
+  
+    .uploadMenuDivSize{
+        width:150px;
+        height:40px;
+    }
+  
+    .conversationMenuDiv{
+        height:60px;
+        top:59px;
+    }
+  
+    .menuHRLine{
+        height:50px;
+    }
+    .userIcon{
+        width:30px;
+        height:28px;
+    }
+    
+    .contentCommunication{
+        height: calc(100% - (62px + 64px));
+    }
+
+  .userType{
+      height:25px;
+    line-height:35px;
+  }
+
+  .userName{
+    height:35px;
+  }
+}
+
+
+
+
+
+/*****************************Attachment option div css*****************************/
+.attchmentOptionDiv{
+    width:215px;
+    right:10px;
+    top:60px;
+    z-index:99999999;
+   border-radius:5px;
+}
+
+
+.msgMenuRow{
+    height:60px;
+    padding:5px 0px;
+}
+
+
+.msgMenuBlock{
+    width:100px;
+    height:60px;
+    border-radius:3px;
+   margin-left:5px;
+}
+
+
+.arrow-up {
+	border-bottom: 20px solid #CCCCCC;
+    border-left: 10px solid rgba(0, 0, 0, 0);
+    border-right: 10px solid rgba(0, 0, 0, 0);
+    height: 0;
+    position: absolute;
+    right: 10px;
+    top: -17px;
+    width: 0;
+}
