@@ -62,7 +62,6 @@ class conversation extends REST_Controller
 		$attachment = $this->post('attachment');
 		$this->load->model('conversationModel');
 		$result = array('status' => $this->conversationModel->forwardMessage($msgBody, $msgFrom, $msgTo, $msgSubject, $thread, $newThread, $sendername, $role, $tonames, $msgListId, $attachment));
-		$result = array_merge($result1, $result2);
     	
 		$this->response($result);
 		
@@ -71,7 +70,7 @@ class conversation extends REST_Controller
 	function inbox_post(){
 		$userid = $this->post('userid');
 		$this->load->model('conversationModel');
-		$result = array('status' => $this->conversationModel->getInboxData($userid));
+		$result = array('inboxMessages' => $this->conversationModel->getInboxData($userid));
     	
 		$this->response($result);
 		
@@ -81,8 +80,7 @@ class conversation extends REST_Controller
 		$thread = $this->post('thread');
 		$recpientid = $this->post('recpientid');
 		$this->load->model('conversationModel');
-		$result = array('status' => $this->conversationModel->getDetailedMsg($thread, $recpientid));
-		$result = array_merge($result1, $result2);
+		$result = array('messagesDetailList' => $this->conversationModel->getDetailedMsg($thread, $recpientid));
     	
 		$this->response($result);
 		
@@ -92,8 +90,7 @@ class conversation extends REST_Controller
 	function unreadCnt_post(){
 		$userid = $this->post('userid');
 		$this->load->model('conversationModel');
-		$result = array('status' => $this->conversationModel->getUnreadCnt($userid));
-		$result = array_merge($result1, $result2);
+		$result = array('unreadCnt' => $this->conversationModel->getUnreadCnt($userid));
     	
 		$this->response($result);
 		
@@ -103,8 +100,19 @@ class conversation extends REST_Controller
 	function contacts_post(){
 		$userid = $this->post('userid');
 		$this->load->model('conversationModel');
-		$result = array('status' => $this->conversationModel->getContacts($userid));
-		$result = array_merge($result1, $result2);
+		$result = array('contacts' => $this->conversationModel->getContacts($userid));
+    	
+		$this->response($result);
+		
+	}
+	
+	
+	function syncContact_post(){
+		$userid = $this->post('userid');
+		$nameArray = $this->post('nameArray');
+		$phoneNumberArr = $this->post('phoneNumberArr');
+		$this->load->model('conversationModel');
+		$result = array('contacts' => $this->conversationModel->syncContacts($userid, $nameArray, $phoneNumberArr));
     	
 		$this->response($result);
 		
